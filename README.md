@@ -1,3 +1,5 @@
+<h1 align="center">/!\ Temporary project until it is merge to web-component-analyzer main /!\</h1>
+
 <h1 align="center">web-component-analyzer</h1>
 
 <p align="center">
@@ -29,14 +31,14 @@ In addition to [vanilla web components](https://developer.mozilla.org/en-US/docs
 
 <!-- prettier-ignore -->
 ```bash
-$ npm install -g web-component-analyzer
+$ npm install -g web-component-analyzer-web-types
 ```
 
 **or**
 
 <!-- prettier-ignore -->
 ```bash
-$ npx web-component-analyzer src
+$ npx web-component-analyzer-web-types src
 ```
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#usage)
@@ -45,11 +47,11 @@ $ npx web-component-analyzer src
 
 <!-- prettier-ignore -->
 ```bash
-$ wca analyze
-$ wca analyze src --format markdown
-$ wca analyze "src/**/*.{js,ts}" --outDir components
-$ wca analyze my-element.js --outFile custom-elements.json
-$ wca analyze --outFiles {dir}/custom-element.json
+$ wca-webtypes analyze
+$ wca-webtypes analyze src --format markdown
+$ wca-webtypes analyze "src/**/*.{js,ts}" --outDir components
+$ wca-webtypes analyze my-element.js --outFile custom-elements.json
+$ wca-webtypes analyze --outFiles {dir}/custom-element.json
 ```
 
 <img src="https://user-images.githubusercontent.com/5372940/54445420-02fd9700-4745-11e9-9305-47d6ec3c6307.gif" />
@@ -77,7 +79,7 @@ The analyze command analyses an optional `<input glob>` and emits the output to 
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format json --outFile custom-elements.json
+wca-webtypes analyze src --format json --outFile custom-elements.json
 ```
 
 Try the online playground [here](https://runem.github.io/web-component-analyzer?format=json)
@@ -91,7 +93,7 @@ This json format is for experimental and demo purposes, and is still being activ
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format markdown --outDir readme
+wca-webtypes analyze src --format markdown --outDir readme
 ```
 
 Try the online playground [here](https://runem.github.io/web-component-analyzer?format=markdown)
@@ -102,7 +104,7 @@ Web Component Analyzer can output markdown documentation of your web components.
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format vscode --outFile vscode-html-custom-data.json
+wca-webtypes analyze src --format vscode --outFile vscode-html-custom-data.json
 ```
 
 VSCode supports a JSON format called [vscode custom data](https://github.com/microsoft/vscode-custom-data) for the built in html editor which is set using `html.customData` vscode setting. Web Component Analyzer can output this format.
@@ -115,7 +117,7 @@ VSCode supports a JSON format called [vscode custom data](https://github.com/mic
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown"}'
+wca-webtypes analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown"}'
 ```
 
 Web-types format is a description for IDE completion, see [web-types](https://github.com/JetBrains/web-types/tree/master/packages)

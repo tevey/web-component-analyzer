@@ -1,5 +1,5 @@
 {
-	"name": "web-component-analyzer",
+	"name": "web-component-analyzer-webtypes",
 	"version": "2.0.0-next.3",
 	"description": "CLI that analyzes web components",
 	"main": "lib/cjs/api.js",
@@ -29,7 +29,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/runem/web-component-analyzer.git"
+		"url": "git+https://github.com/jpradelle/web-component-analyzer.git"
 	},
 	"keywords": [
 		"web components",
@@ -104,7 +104,7 @@
 		"*.{ts,js,md,json}": "prettier --write"
 	},
 	"bin": {
-		"wca": "cli.js",
-		"web-component-analyzer": "cli.js"
+		"wca-webtypes": "cli.js",
+		"web-component-analyzer-webtypes": "cli.js"
 	}
 }

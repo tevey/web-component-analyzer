@@ -15,7 +15,7 @@ Generate your components descriptions with wca
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown", "framework": "lit"}'
+wca-webtypes analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown", "framework": "lit"}'
 ```
 
 `--webtypesConfig` is a json object of web-types root parameters. Working with lit, `framework` must have `lit` value.
@@ -47,7 +47,7 @@ Generate your components descriptions with wca
 
 <!-- prettier-ignore -->
 ```bash
-wca analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown", "framework": "@polymer/polymer"}'
+wca-webtypes analyze src --format webtypes --outFile web-types-custom.json --webtypesConfig='{"name": "web-types-custom", "version": "0.0.1", "description-markup": "markdown", "framework": "@polymer/polymer"}'
 ```
 
 `--webtypesConfig` is a json object of web-types root parameters. Working with polymer, `framework` must have `@polymer/polymer` value.
