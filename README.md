@@ -1,4 +1,4 @@
-<h1 align="center">/!\ Temporary project until it is merge to web-component-analyzer main /!\</h1>
+<h1 align="center">/!\ Temporary project until it is merged to web-component-analyzer main /!\</h1>
 
 <h1 align="center">web-component-analyzer</h1>
 
@@ -31,14 +31,14 @@ In addition to [vanilla web components](https://developer.mozilla.org/en-US/docs
 
 <!-- prettier-ignore -->
 ```bash
-$ npm install -g web-component-analyzer-web-types
+$ npm install -g web-component-analyzer-webtypes
 ```
 
 **or**
 
 <!-- prettier-ignore -->
 ```bash
-$ npx web-component-analyzer-web-types src
+$ npx web-component-analyzer-webtypes src
 ```
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#usage)
