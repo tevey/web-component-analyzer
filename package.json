@@ -1,6 +1,6 @@
 {
 	"name": "web-component-analyzer-webtypes",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "CLI that analyzes web components",
 	"main": "lib/cjs/api.js",
 	"module": "lib/esm/api.js",
