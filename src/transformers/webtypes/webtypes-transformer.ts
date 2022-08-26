@@ -98,7 +98,7 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 	if (customElementProperties.length > 0) js.properties = customElementProperties;
 
 	// Build events
-	const eventAttributes = arrayDefined(declaration.events.map(e => componentEventToAttr(e, checker, config)));
+	const eventAttributes = arrayDefined(declaration.events.map(e => componentEventToAttr(e)));
 	if (eventAttributes.length > 0) js.events = eventAttributes;
 
 	if (js.properties || js.events) build.js = js;
@@ -107,10 +107,12 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 }
 
 function getRelativePath(fileName: string | undefined, config: TransformerConfig): string | undefined {
-	return fileName != null && config.cwd != null ? `${config.pathAsAbsolute ? "" : "./"}${relative(config.cwd, fileName)}` : undefined;
+	return fileName != null && config.cwd != null
+		? `${config.pathAsAbsolute ? "" : "./"}${relative(config.cwd, fileName)}`.replaceAll("\\", "/")
+		: undefined;
 }
 
-function componentEventToAttr(event: ComponentEvent, checker: TypeChecker, config: TransformerConfig): GenericJsContribution {
+function componentEventToAttr(event: ComponentEvent): GenericJsContribution {
 	const builtEvent: GenericJsContribution = {
 		name: event.name
 	};
