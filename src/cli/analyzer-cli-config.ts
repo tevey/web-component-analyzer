@@ -34,5 +34,6 @@ export interface AnalyzerCliConfig {
 	cwd?: string;
 	pathAsAbsolute?: boolean;
 
-	webtypesConfig?: WebTypesTransformerConfig;
+	webtypesConfig?: string | WebTypesTransformerConfig;
+	parsedWebtypesConfig?: WebTypesTransformerConfig;
 }
