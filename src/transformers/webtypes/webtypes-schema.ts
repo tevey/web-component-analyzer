@@ -147,6 +147,7 @@ export interface BaseContribution {
 export interface HtmlContributionHost {
 	elements?: HtmlElement[];
 	attributes?: HtmlAttribute[];
+	slots?: SlotAttribute[];
 }
 
 export interface HtmlAttribute extends BaseContribution, HtmlContributionHost {
@@ -161,6 +162,10 @@ export interface HtmlAttributeValue {
 	default?: string;
 	kind?: HtmlAttributeType;
 }
+
+export interface SlotAttribute extends BaseContribution {}
+
+export interface CssPartAttribute extends BaseContribution {}
 
 export interface TypeReference {
 	module?: string;
@@ -201,6 +206,7 @@ export interface CssContributionsHost {
 	"pseudo-classes"?: CssPseudoClass[];
 	functions?: CssGenericItem[];
 	classes?: CssGenericItem[];
+	parts?: CssPartAttribute[];
 }
 
 export interface CssProperty extends BaseContribution, CssContributionsHost {
