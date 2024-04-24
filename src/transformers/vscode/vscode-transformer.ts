@@ -10,6 +10,7 @@ import { markdownHighlight } from "../markdown/markdown-util";
 import { TransformerConfig } from "../transformer-config";
 import { TransformerFunction } from "../transformer-function";
 import { HtmlDataAttr, HtmlDataAttrValue, HtmlDataTag, VscodeHtmlData } from "./vscode-html-data";
+import { filterVisibility } from "../../util/model-util";
 
 /**
  * Vscode json output format transformer.
@@ -24,7 +25,7 @@ export const vscodeTransformer: TransformerFunction = (results: AnalyzerResult[]
 	const definitions = results.map(res => res.componentDefinitions).reduce((acc, cur) => [...acc, ...cur], []);
 
 	// Transform all definitions into "tags"
-	const tags = definitions.map(d => definitionToHtmlDataTag(d, checker));
+	const tags = definitions.map(d => definitionToHtmlDataTag(d, checker, config));
 
 	const vscodeJson: VscodeHtmlData = {
 		version: 1,
@@ -36,7 +37,7 @@ export const vscodeTransformer: TransformerFunction = (results: AnalyzerResult[]
 	return JSON.stringify(vscodeJson, null, 2);
 };
 
-function definitionToHtmlDataTag(definition: ComponentDefinition, checker: TypeChecker): HtmlDataTag {
+function definitionToHtmlDataTag(definition: ComponentDefinition, checker: TypeChecker, config: TransformerConfig): HtmlDataTag {
 	const declaration = definition.declaration;
 
 	if (declaration == null) {
@@ -47,22 +48,24 @@ function definitionToHtmlDataTag(definition: ComponentDefinition, checker: TypeC
 	}
 
 	// Transform all members into "attributes"
-	const customElementAttributes = arrayDefined(declaration.members.map(d => componentMemberToVscodeAttr(d, checker)));
-	const eventAttributes = arrayDefined(declaration.events.map(e => componentEventToVscodeAttr(e, checker)));
+	const customElementAttributes = arrayDefined(
+		filterVisibility(config.visibility, declaration.members).map(d => componentMemberToVscodeAttr(d, checker))
+	);
+	const eventAttributes = arrayDefined(filterVisibility(config.visibility, declaration.events).map(e => componentEventToVscodeAttr(e, checker)));
 
 	const attributes = [...customElementAttributes, ...eventAttributes];
 
 	return {
 		name: definition.tagName,
 		description: formatMetadata(declaration.jsDoc, {
-			Events: declaration.events.map(e => formatEntryRow(e.name, e.jsDoc, e.type?.(), checker)),
+			Events: filterVisibility(config.visibility, declaration.events).map(e => formatEntryRow(e.name, e.jsDoc, e.type?.(), checker)),
 			Slots: declaration.slots.map(s =>
 				formatEntryRow(s.name || " ", s.jsDoc, s.permittedTagNames && s.permittedTagNames.map(n => `"${markdownHighlight(n)}"`).join(" | "), checker)
 			),
-			Attributes: declaration.members
+			Attributes: filterVisibility(config.visibility, declaration.members)
 				.map(m => ("attrName" in m && m.attrName != null ? formatEntryRow(m.attrName, m.jsDoc, m.typeHint || m.type?.(), checker) : undefined))
 				.filter(m => m != null),
-			Properties: declaration.members
+			Properties: filterVisibility(config.visibility, declaration.members)
 				.map(m => ("propName" in m && m.propName != null ? formatEntryRow(m.propName, m.jsDoc, m.typeHint || m.type?.(), checker) : undefined))
 				.filter(m => m != null)
 		}),

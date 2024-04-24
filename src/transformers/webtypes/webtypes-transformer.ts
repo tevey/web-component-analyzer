@@ -22,6 +22,7 @@ import {
 } from "./webtypes-schema";
 import { getFirst } from "../../util/set-util";
 import { relative } from "path";
+import { filterVisibility } from "../../util/model-util";
 
 interface SourceDescription {
 	module: string;
@@ -65,7 +66,7 @@ export const webtypesTransformer: TransformerFunction = (results: AnalyzerResult
 		}
 	};
 
-	return JSON.stringify(webtypesJson, null, 4);
+	return JSON.stringify(webtypesJson, null, 2);
 };
 
 function definitionToCssProperties(definition: ComponentDefinition): CssProperty[] {
@@ -89,9 +90,6 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 		...(declaration.deprecated !== undefined ? { deprecated: true } : {})
 	};
 
-	// Build description
-	if (declaration?.jsDoc?.description) build.description = declaration.jsDoc.description;
-
 	// Build source section
 	const node = getFirst(definition.identifierNodes);
 	const path = getRelativePath(node?.getSourceFile().fileName, config);
@@ -110,7 +108,7 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 
 	// Build attributes
 	const customElementAttributes = arrayDefined(
-		declaration.members.map(d => componentMemberToAttr(d.attrName, d, sourceDescription, checker, config))
+		filterVisibility(config.visibility, declaration.members).map(d => componentMemberToAttr(d.attrName, d, sourceDescription, checker, config))
 	);
 	if (customElementAttributes.length > 0) build.attributes = customElementAttributes;
 
@@ -118,12 +116,12 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 
 	// Build properties
 	const customElementProperties = arrayDefined(
-		declaration.members.map(d => componentMemberToAttr(d.propName, d, sourceDescription, checker, config))
+		filterVisibility(config.visibility, declaration.members).map(d => componentMemberToAttr(d.propName, d, sourceDescription, checker, config))
 	);
 	if (customElementProperties.length > 0) js.properties = customElementProperties;
 
 	// Build events
-	const eventAttributes = arrayDefined(declaration.events.map(e => componentEventToAttr(e)));
+	const eventAttributes = arrayDefined(filterVisibility(config.visibility, declaration.events).map(e => componentEventToAttr(e)));
 	if (eventAttributes.length > 0) js.events = eventAttributes;
 
 	if (js.properties || js.events) build.js = js;
@@ -150,6 +148,9 @@ function definitionToHTMLElement(definition: ComponentDefinition, checker: TypeC
 	}
 
 	if (css.parts) build.css = css;
+
+	// Build description
+	if (declaration?.jsDoc?.description) build.description = declaration.jsDoc.description;
 
 	return build;
 }
