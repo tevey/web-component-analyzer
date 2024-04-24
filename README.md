@@ -1,4 +1,10 @@
-<h1 align="center">/!\ Temporary project until it is merged to web-component-analyzer main /!\</h1>
+# The fork of the fork
+
+This is a fork of web-component-analyzer-webtypes.
+
+Added in this fork:
+
+- vscode and webtypes output now respect visibility config.
 
 <h1 align="center">web-component-analyzer</h1>
 
@@ -31,7 +37,7 @@ In addition to [vanilla web components](https://developer.mozilla.org/en-US/docs
 
 <!-- prettier-ignore -->
 ```bash
-$ npm install -g web-component-analyzer-webtypes
+$ npm install -g @tevey/web-component-analyzer-webtypes
 ```
 
 **or**
